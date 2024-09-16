@@ -24,5 +24,10 @@
 		"bundle"
 	],
 	"author": "BeyondJS",
-	"license": "MIT"
+	"license": "MIT",
+	"dependencies": {
+		"@beyond-js/bundles-sdk": "^1.0.3",
+		"@beyond-js/dynamic-processor": "^0.0.3",
+		"@beyond-js/equal": "^0.0.1"
+	}
 }

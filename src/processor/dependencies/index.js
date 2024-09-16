@@ -1,32 +1,34 @@
-module.exports = class extends global.ProcessorAnalyzerDependencies {
-    get dp() {
-        return 'sass.dependencies';
-    }
+const ProcessorAnalyzerDependencies = require('@beyond-js/bundles-sdk/processor/base/dependencies/analyzer');
 
-    #files;
-    get files() {
-        return this.#files;
-    }
+module.exports = class extends ProcessorAnalyzerDependencies {
+	get dp() {
+		return 'sass.dependencies';
+	}
 
-    constructor(processor) {
-        super(processor, require('./dependency'));
-        this.#files = new (require('./files'))(this);
-    }
+	#files;
+	get files() {
+		return this.#files;
+	}
 
-    _update() {
-        const {errors, updated} = super._update();
-        if (errors?.length) return {errors};
+	constructor(processor) {
+		super(processor, require('./dependency'));
+		this.#files = new (require('./files'))(this);
+	}
 
-        // Processor 'sass' requires '@beyond-js/kernel/styles' as a dependency
-        (() => {
-            const styles = '@beyond-js/kernel/styles';
-            if (this.has(styles)) return;
+	_update() {
+		const { errors, updated } = super._update();
+		if (errors?.length) return { errors };
 
-            const dependency = this._create(styles);
-            dependency.is.add('import');
-            updated.set(styles, dependency);
-        })();
+		// Processor 'sass' requires '@beyond-js/kernel/styles' as a dependency
+		(() => {
+			const styles = '@beyond-js/kernel/styles';
+			if (this.has(styles)) return;
 
-        return {updated};
-    }
-}
+			const dependency = this._create(styles);
+			dependency.is.add('import');
+			updated.set(styles, dependency);
+		})();
+
+		return { updated };
+	}
+};

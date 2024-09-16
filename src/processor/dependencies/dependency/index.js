@@ -1,15 +1,17 @@
-module.exports = class extends global.Dependency {
-    get dp() {
-        return 'sass.dependency';
-    }
+const Dependency = require('@beyond-js/bundles-sdk/dependencies/dependency');
 
-    #files;
-    get files() {
-        return this.#files;
-    }
+module.exports = class extends Dependency {
+	get dp() {
+		return 'sass.dependency';
+	}
 
-    constructor(resource, processor) {
-        super(resource, processor);
-        resource !== '@beyond-js/kernel/styles' && (this.#files = new (require('./files'))(this));
-    }
-}
+	#files;
+	get files() {
+		return this.#files;
+	}
+
+	constructor(resource, processor) {
+		super(resource, processor);
+		resource !== '@beyond-js/kernel/styles' && (this.#files = new (require('./files'))(this));
+	}
+};

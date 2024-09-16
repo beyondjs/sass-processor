@@ -1,29 +1,31 @@
-module.exports = class extends global.ProcessorSourcesHashes {
-    get dp() {
-        return 'sass.processor.sources.hashes';
-    }
+const ProcessorSourcesHashes = require('@beyond-js/bundles-sdk/processor/base/sources/hashes');
 
-    constructor(sources) {
-        super(sources);
+module.exports = class extends ProcessorSourcesHashes {
+	get dp() {
+		return 'sass.processor.sources.hashes';
+	}
 
-        const {template} = sources;
-        template && super.setup(new Map([['template', {child: template}]]));
-    }
+	constructor(sources) {
+		super(sources);
 
-    _prepared(require) {
-        const prepared = super._prepared(require);
-        if (typeof prepared === 'string' || (typeof prepared === 'boolean' && !prepared)) return prepared;
+		const { template } = sources;
+		template && super.setup(new Map([['template', { child: template }]]));
+	}
 
-        if (!this.children.has('template')) return;
-        const {instance} = this.children.get('template').child;
-        if (!instance) return;
+	_prepared(require) {
+		const prepared = super._prepared(require);
+		if (typeof prepared === 'string' || (typeof prepared === 'boolean' && !prepared)) return prepared;
 
-        require(instance.sources.hashes);
-    }
+		if (!this.children.has('template')) return;
+		const { instance } = this.children.get('template').child;
+		if (!instance) return;
 
-    _compute() {
-        if (!this.children.has('template')) return;
-        const {instance} = this.children.get('template').child;
-        return instance ? instance.sources.hashes.sources : 0;
-    }
-}
+		require(instance.sources.hashes);
+	}
+
+	_compute() {
+		if (!this.children.has('template')) return;
+		const { instance } = this.children.get('template').child;
+		return instance ? instance.sources.hashes.sources : 0;
+	}
+};
