@@ -4,13 +4,15 @@
 	"description": "Bridge bundle for Beyond.js",
 	"main": "index.js",
 	"exports": {
-		".": "./index.js"
-	},
-	"dependencies": {
-		"@beyond-js/backend": "^1.0.0"
-	},
-	"peerDependencies": {
-		"@beyond-js/kernel": "^1.0.0"
+		".": "./src/index.js",
+		"./resource": "./src/resource/index.js",
+		"./processor/hashes": "./src/processor/hashes/index.js",
+		"./processor/sources": "./src/processor/sources/index.js",
+		"./processor/analyzer": "./src/processor/analyzer/index.js",
+		"./processor/dependencies": "./src/processor/dependencies/index.js",
+		"./packager/compiler": "./src/packager/compiler/index.js",
+		"./packager/code/css": "./src/packager/code/css/index.js",
+		"./packager/code/js": "./src/packager/code/js/index.js"
 	},
 	"engines": {
 		"node": ">=14.0.0"
